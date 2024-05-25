@@ -6,9 +6,9 @@ describe("connectDB", () => {
     jest.clearAllMocks();
   });
 
-  it("should not run callback when reconnect database", async () => {
+  it("should run callback when has new connection to database", async () => {
     const callback = jest.fn();
     await connectDB(callback);
-    expect(callback).not.toHaveBeenCalled();
+    expect(callback).toHaveBeenCalled();
   });
 });

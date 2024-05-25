@@ -7,7 +7,7 @@ describe("async middleware", () => {
     jest.clearAllMocks();
   });
 
-  it("should return next when function is success", async () => {
+  it("should call next function when current function is success", async () => {
     const req = {} as any;
     const next = jest.fn();
     const fn = jest.fn().mockReturnValue("test");
@@ -15,11 +15,10 @@ describe("async middleware", () => {
     expect(fn).toHaveBeenCalled();
   });
 
-  it("should return status 400 when function is fail with code 400", async () => {
+  it("should return status 400 when current function is fail with code 400", async () => {
     const req = {} as any;
     const next = jest.fn();
-    //@ts-ignore
-    const fn = jest.fn().mockRejectedValue({ code: 400 });
+    const fn = jest.fn().mockRejectedValue({ code: 400 } as never);
     await asyncMiddleware(fn)(req, res, next);
     expect(res.status(400).json).toHaveBeenCalled();
   });
@@ -27,8 +26,7 @@ describe("async middleware", () => {
   it("should return status 400 when function is fail with statusCode 400", async () => {
     const req = {} as any;
     const next = jest.fn();
-    //@ts-ignore
-    const fn = jest.fn().mockRejectedValue({ statusCode: 400 });
+    const fn = jest.fn().mockRejectedValue({ statusCode: 400 } as never);
     await asyncMiddleware(fn)(req, res, next);
     expect(res.status(400).json).toHaveBeenCalled();
   });

@@ -8,3 +8,4 @@ uploads
 .vscode
 data/certbot
 coverage
+test_db

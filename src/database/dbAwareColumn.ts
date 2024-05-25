@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import { ColumnOptions, ColumnType, Column as OriginalColumn } from "typeorm";
 import { UpdateDateColumn as OriginalUpdateDateColumn } from "typeorm";
 import { CreateDateColumn as OriginalCreateDateColumn } from "typeorm";

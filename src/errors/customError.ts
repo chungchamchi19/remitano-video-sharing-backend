@@ -1,8 +1,8 @@
 import getErrorMessage from "./getErrorMessage";
 
 class CustomError {
-  private code: number;
-  private message: string;
+  public code: number;
+  public message: string;
 
   constructor(code: number, message?: string) {
     this.code = code;
