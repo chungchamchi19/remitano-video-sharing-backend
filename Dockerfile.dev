@@ -1,0 +1,7 @@
+FROM node:18-alpine3.16
+WORKDIR /app
+RUN apk add --no-cache bash vim
+RUN npm install -g typescript
+RUN npm install -g ts-node
+
+COPY package.json yarn.lock ./
