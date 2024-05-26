@@ -10,4 +10,9 @@ describe("convertToSlug", () => {
     const slug = convertToSlug("Hello World");
     expect(slug).toBe("hello-world");
   });
+
+  it("should return empty string when input is undefined", async () => {
+    const slug = convertToSlug(undefined);
+    expect(slug).toBe("");
+  });
 });

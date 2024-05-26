@@ -18,13 +18,13 @@ describe("auth service", () => {
       expect(user.password).toBe("123");
     });
 
-    it("should return the user when user is already in the database", async () => {
+    it("should return the user when user is already in the database and do not return the password", async () => {
       const user = await authServices.createUser({
         email: "test_user@gmail.com",
         password: "123",
       });
       expect(user.email).toBe("test_user@gmail.com");
-      expect(user.password).toBe("123");
+      expect(user.password).toBe(undefined);
     });
 
     it("should not return user when missing email", async () => {

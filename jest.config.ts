@@ -19,7 +19,7 @@ const config: Config.InitialOptions = {
       statements: 80,
     },
     "./src/modules/": {
-      branches: 65,
+      branches: 70,
       functions: 90,
       lines: 90,
       statements: 90,

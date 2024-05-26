@@ -1,4 +1,3 @@
-
 export const convertToSlug = (name: string): string => {
   if (name) {
     name = name.toLowerCase();

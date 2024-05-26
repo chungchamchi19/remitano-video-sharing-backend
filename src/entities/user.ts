@@ -1,5 +1,6 @@
 import { Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Token } from "./token";
+import { Movie } from "./movie";
 import { Column } from "../database/dbAwareColumn";
 
 @Entity()
@@ -10,7 +11,7 @@ export class User {
   @Column({ nullable: false })
   email?: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, select: false })
   password?: string;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
@@ -20,4 +21,6 @@ export class User {
   updatedAt?: Date;
 
   @OneToMany(() => Token, (token) => token.user, { onDelete: "CASCADE" }) tokens?: Token[];
+
+  @OneToMany(() => Movie, (movie) => movie.user, { onDelete: "CASCADE" }) movies?: Token[];
 }
