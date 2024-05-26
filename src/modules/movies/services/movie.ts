@@ -14,7 +14,8 @@ const getMovies = async (filter: { pageSize: number; lastMovieId?: number; order
   if (lastMovieId) {
     query.andWhere("m.id < :lastMovieId", { lastMovieId });
   }
-  query.leftJoinAndSelect("m.user", "u");
+  query.leftJoin("m.user", "u");
+  query.addSelect(["u.id", "u.email"]);
   query.orderBy("m.createdAt", orderBy);
   query.limit(pageSize || config.MAX_RECORDS_PER_REQ);
   return await query.getMany();

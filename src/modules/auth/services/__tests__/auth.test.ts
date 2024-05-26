@@ -15,16 +15,16 @@ describe("auth service", () => {
         password: "123",
       });
       expect(user.email).toBe("test_user@gmail.com");
-      expect(user.password).toBe("123");
+      expect(user.password).toBe("hash123");
     });
 
-    it("should return the user when user is already in the database and do not return the password", async () => {
+    it("should return the user when user is already in the database", async () => {
       const user = await authServices.createUser({
         email: "test_user@gmail.com",
         password: "123",
       });
       expect(user.email).toBe("test_user@gmail.com");
-      expect(user.password).toBe(undefined);
+      expect(user.password).toBe("hash123");
     });
 
     it("should not return user when missing email", async () => {
@@ -84,8 +84,8 @@ describe("auth service", () => {
 
 jest.mock("../helper", () => {
   return {
-    hashBcrypt: jest.fn().mockReturnValue("123"),
-    generateSalt: jest.fn().mockReturnValue("123"),
+    hashBcrypt: jest.fn().mockReturnValue("hash123"),
+    generateSalt: jest.fn().mockReturnValue("salt123"),
     compareBcrypt: jest.fn().mockReturnValue(true),
   };
 });
