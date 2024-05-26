@@ -29,7 +29,12 @@ const shareMovie = async (req: Request, res: Response) => {
   };
   const movie = await movieService.createMovie(body);
   //@ts-ignore
-  global.io.emit("share-movie", movie);
+  global.io.emit("share-movie", {
+    ...movie,
+    user: {
+      email: req.user.email,
+    },
+  });
   return res.status(200).json({
     status: "success",
     result: movie,
