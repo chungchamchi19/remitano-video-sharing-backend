@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:16.3-alpine
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=123qwe
+    ports:
+      - "5432:5432"
+  backend:
+    build:
+      context: .
+      dockerfile: ${DOCKER_FILE}
+    command: yarn start
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+      - PORT=${PORT}
+    depends_on:
+      - postgres
