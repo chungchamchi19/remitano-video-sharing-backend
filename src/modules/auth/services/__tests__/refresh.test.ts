@@ -2,6 +2,8 @@ import { describe, it, expect, jest, afterAll } from "@jest/globals";
 import { deleteRefreshToken, getNewAccessTokenFromRefreshToken } from "../refresh";
 import { initData } from "../../../../tests/setup";
 import CustomError from "../../../../errors/customError";
+import { appDataSource } from "../../../../database/connectDB";
+import { Token } from "../../../../entities/token";
 
 jest.mock("../helper", () => {
   return {
@@ -39,6 +41,19 @@ describe("refresh", () => {
   });
 
   it("should delete refresh token when refresh token correct", async () => {
-    await deleteRefreshToken("123");
+    const tokenRepo = appDataSource.getRepository(Token);
+    const deleteToken = "token-test-1";
+    await deleteRefreshToken(deleteToken);
+    const findToken = await tokenRepo.findOne({ where: { token: "deleteToken" } });
+    expect(findToken).toBeNull();
+  });
+
+  it("should not delete refresh token when refresh token incorrect", async () => {
+    try {
+      await deleteRefreshToken("123");
+    } catch (error) {
+      expect((error as CustomError).code).toBe(404);
+      expect((error as CustomError).message).toBe("Token not found!");
+    }
   });
 });

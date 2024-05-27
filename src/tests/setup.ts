@@ -21,7 +21,7 @@ export const initData = async () => {
   const userRepository = appDataSource.getRepository(User);
   await userRepository.save({
     email: "test_user@gmail.com",
-    password: "12322222",
+    password: "123",
   });
 
   const tokenRepository = appDataSource.getRepository(Token);

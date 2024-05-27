@@ -21,7 +21,7 @@ export const deleteRefreshToken = async (token: string) => {
   const tokenRepo = appDataSource.getRepository(Token);
   const findToken = await tokenRepo.findOne({ where: { token } });
   if (!findToken) {
-    return;
+    throw new CustomError(codes.NOT_FOUND, "Token not found!");
   }
   await tokenRepo.delete(findToken.id);
 };

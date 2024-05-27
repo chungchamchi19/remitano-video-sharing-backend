@@ -2,6 +2,7 @@ import { describe, it, expect, jest, afterAll } from "@jest/globals";
 import authServices from "../auth";
 import { initData } from "../../../../tests/setup";
 import CustomError from "../../../../errors/customError";
+import { compareBcrypt } from "../helper";
 
 describe("auth service", () => {
   describe("createUser", () => {
@@ -52,6 +53,7 @@ describe("auth service", () => {
     });
 
     it("should return unauthorized error when password incorrect", async () => {
+      jest.mocked(compareBcrypt).mockResolvedValue(false);
       try {
         await authServices.createUser({
           email: "test_user@gmail.com",
