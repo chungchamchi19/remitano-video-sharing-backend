@@ -44,8 +44,27 @@ describe("movieService", () => {
     });
 
     it("should return movies when params has not lastMovieId", async () => {
-      const movies = await movieService.getMovies({ pageSize: 10, orderBy: "DESC" });
-      expect(movies).not.toBe(undefined);
+      const movies = await movieService.getMovies({ pageSize: 1, orderBy: "DESC" });
+      const expectMovies = movies.map((movie) => {
+        return {
+          title: movie.title,
+          description: movie.description,
+          thumbnail: movie.thumbnail,
+          user: {
+            email: movie.user.email,
+          },
+        };
+      });
+      expect(expectMovies).toEqual([
+        {
+          title: "test",
+          description: "test",
+          thumbnail: "test",
+          user: {
+            email: "test_user@gmail.com",
+          },
+        },
+      ]);
     });
 
     it("should return movies when params has lastMovieId", async () => {
